@@ -1,0 +1,39 @@
+%-------------------------------------------------------------------------------
+%- CPYRGT1: (c) 2015 Vision Group, Queen Mary University of London
+%- CPYRGT2: (c) 2015 Vision Semantics Ltd.
+%-
+%- C.AUTHR: Ryan Layne, <r.d.c.layne [at] qmul.ac.uk>
+%- LICENSE: Academic use only, no commercial usage without direct consent from 
+%-          the authors.
+%- WEBSITE: http://qml.io/rlayne
+%-
+%- CITEPRE: Please cite the following papers if you use this code in your 
+%-          research:
+%- CITATN1: Layne, R., Hospedales, T. M., & Gong, S. (2012). Person 
+%-          Re-identification by Attributes. British Machine Vision Conference.  
+%-          Surrey, England.
+%- CITATN2: Gray, D., & Tao, H. (2008). Viewpoint invariant pedestrian 
+%-          recognition with an ensemble of localized features. European 
+%-          Conference on Computer Vision. Marseille, France. 
+%-------------------------------------------------------------------------------
+function feats=genFeatureSlices(img)
+feats = zeros(size(img,1),size(img,2),21);
+gb=[struct('v',[2,0.3,0,4,0])  % Gabor filter parameters
+    struct('v',[2,0.3,0,8,0]) 
+    struct('v',[1,0.4,0,4,0]) 
+    struct('v',[1,0.4,0,8,0]) 
+    struct('v',[2,0.3,0,4,pi./2]) 
+    struct('v',[2,0.3,0,8,pi./2]) 
+    struct('v',[1,0.3,0,4,pi./2]) 
+    struct('v',[1,0.3,0,8,pi./2])];
+sc1=[2 4 4 6 6 6 8 8 8 10 10 10 10]; % Schmid parameters
+sc2=[1 1 2 1 2 3 1 2 3 1 2 3 4];
+    
+for j=1:8
+    feats(:,:,j)=genGaborLabels2(img,gb(j).v);
+end
+for j=1:13
+    feats(:,:,j+8)=genSchmidLabels2(img,sc1(j),sc2(j));
+end
+    
+    
