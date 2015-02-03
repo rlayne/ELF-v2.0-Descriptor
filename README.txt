@@ -17,6 +17,9 @@
 %-          Conference on Computer Vision. Marseille, France. 
 %-------------------------------------------------------------------------------
 
+Usage:
+The entrypoint for this code is the function genDescriptor.  Please edit the function for usage instruction and assistance with parameters.
+
 Context:
 This code package is a proximal implementation of Gray and Tao's ELF descriptor, and the code has been upgraded a bit here and there over time to support masking and improve computational efficiency.  
 
